@@ -1,3 +1,78 @@
 1>>django-admin startproject **website name**
 2>> python manage.py startapp **appName**
 3>> python manage.py makemigrations music
+4>> then again `python manage.py migrate`
+5>>
+
+
+
+➜  website git:(master) ✗ python manage.py shell
+Python 2.7.12 (default, Nov 19 2016, 06:48:10) 
+[GCC 5.4.0 20160609] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from music.models import Album, Song
+>>> Album.objects()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+TypeError: 'Manager' object is not callable
+>>> Album.objects.all()
+<QuerySet []>
+>>> a = Album(artist="Taylor Swift", album_title="Red",genere=""Country,album_logo="")
+  File "<console>", line 1
+    a = Album(artist="Taylor Swift", album_title="Red",genere=""Country,album_logo="")
+                                                                      ^
+SyntaxError: invalid syntax
+>>> a = Album(artist="Taylor Swift", album_title="Red",genere=""Country,album_logo="hello")
+  File "<console>", line 1
+    a = Album(artist="Taylor Swift", album_title="Red",genere=""Country,album_logo="hello")
+                                                                      ^
+SyntaxError: invalid syntax
+>>> a = Album(artist="Taylor Swift", album_title="Red",genere="Country",album_logo="hello")
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/usr/local/lib/python2.7/dist-packages/django/db/models/base.py", line 555, in __init__
+    raise TypeError("'%s' is an invalid keyword argument for this function" % list(kwargs)[0])
+TypeError: 'genere' is an invalid keyword argument for this function
+>>> a = Album(artist="Taylor Swift", album_title="Red",genre="Country",album_logo="hello")
+>>> a.save()
+>>> a.artist
+'Taylor Swift'
+>>> a.album_title
+'Red'
+>>> a.id
+1
+>>> a.pk
+1
+>>> b.Album()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'b' is not defined
+>>> b.Album
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'b' is not defined
+>>> b =Album()
+>>> b.artist = "Saikat"
+>>> b.album_title="mysong"
+>>> b.genre = "idontknow"
+>>> b.album_logo= "some.png"
+>>> b.save()
+>>> b.artist
+'Saikat'
+
+
+
+>>> from music.models import Album, Song
+>>> Album.objects.all()
+<QuerySet [<Album: Red - Taylor Swift>, <Album: mysong - Saikat>]>
+>>> Album.objects.filter(id=1)
+<QuerySet [<Album: Red - Taylor Swift>]>
+>>> Album.objects.filter(artist='Saikat')
+<QuerySet [<Album: mysong - Saikat>]>
+>>> Album.objects.filter(artist__startswith='Saikat')
+<QuerySet [<Album: mysong - Saikat>]>
+>>> Album.objects.filter(artist__startswith='S')
+<QuerySet [<Album: mysong - Saikat>]>
+>>> Album.objects.filter(artist__startswith='aS')
+<QuerySet []>
