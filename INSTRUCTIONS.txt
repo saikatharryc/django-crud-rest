@@ -76,3 +76,6 @@ NameError: name 'b' is not defined
 <QuerySet [<Album: mysong - Saikat>]>
 >>> Album.objects.filter(artist__startswith='aS')
 <QuerySet []>
+
+
+6>>python manage.py createsuperuser
