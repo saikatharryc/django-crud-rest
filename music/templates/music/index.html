@@ -1,10 +1,25 @@
-{% if all_albums %}
-<h1>Here all my albums...</h1>
-<ul>
-    {% for album in all_albums %}
-    <li><a href="/music/{{album.id}}/">{{ album.album_title }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-	<h1>You Don't Have any albums..</h1> 
-{% endif %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="bower_components/semantic/dist/semantic.min.css">
+    <title>This is Music Page</title>
+</head>
+
+<body>
+    {% if all_albums %}
+    <h1 class="ui header">Here all my albums...</h1>
+    <ul class="ui list">
+        {% for album in all_albums %}
+        <li><a href="/music/{{album.id}}/">{{ album.album_title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h1 class="ui header">You Don't Have any albums..</h1> {% endif %}
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.css""></script>
+    <script type="text/javascript" src="../bower_components/semantic/dist/semantic.min.js"></script>
+</body>
+
+</html>
